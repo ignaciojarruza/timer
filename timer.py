@@ -2,8 +2,16 @@ import select
 import time
 import sys
 from time import strftime, localtime
+import csv
+from datetime import datetime
+
+def log_event(start, end, tag, filename='log.csv'):
+    with open(filename, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([start, end, tag])
 
 def main():
+    tag = input("Enter tag for activity.")
     print("Press any button to stop the timer.")
     start_time = time.time()
     while True:
@@ -20,8 +28,10 @@ def main():
             break
     start = strftime('%Y-%m-%d %H:%M:%S', localtime(start_time))
     end = strftime('%Y-%m-%d %H:%M:%S', localtime(time.time()))
-    print("start_time: {} | end_time: {}".format(start, end))
 
+    log_event(start, end, tag)
+
+    print("start_time: {} | end_time: {}".format(start, end))
     print("\nElapsed Time: {} hours {} minutes {} seconds".format(int(hours), int(minutes), int(seconds)))
 if __name__ == "__main__":
     main()
