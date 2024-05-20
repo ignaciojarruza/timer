@@ -1,6 +1,7 @@
 import select
 import time
 import sys
+from time import strftime, localtime
 
 def main():
     print("Press any button to stop the timer.")
@@ -17,6 +18,9 @@ def main():
         if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
             line = input()
             break
+    start = strftime('%Y-%m-%d %H:%M:%S', localtime(start_time))
+    end = strftime('%Y-%m-%d %H:%M:%S', localtime(time.time()))
+    print("start_time: {} | end_time: {}".format(start, end))
 
     print("\nElapsed Time: {} hours {} minutes {} seconds".format(int(hours), int(minutes), int(seconds)))
 if __name__ == "__main__":
