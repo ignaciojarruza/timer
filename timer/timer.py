@@ -33,6 +33,3 @@ def main():
 
     print("start_time: {} | end_time: {}".format(start, end))
     print("\nElapsed Time: {} hours {} minutes {} seconds".format(int(hours), int(minutes), int(seconds)))
-    
-if __name__ == "__main__":
-    main()

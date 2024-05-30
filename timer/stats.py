@@ -34,7 +34,7 @@ def main():
 
     # Total stats 
     total_times = logs.groupby('tag')['duration'].sum()
-    printStats(total_times, "Stats")
+    printStats(total_times, "Stats:")
 
     # For current week stats
     current_date = dt.datetime.now()

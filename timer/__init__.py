@@ -1,7 +1,7 @@
-"""Top-level package for TimeLog."""
+"""Top-level package for Timer."""
 # timer/__init__.py
 
-__app_name__ = "TimeLog"
+__app_name__ = "Timer"
 __version__ = "1.0"
 
 (
