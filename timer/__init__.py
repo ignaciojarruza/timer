@@ -1,4 +1,4 @@
-"""Top-level package for Timer."""
+"""Top-level package for TimeLog."""
 # timer/__init__.py
 
 __app_name__ = "TimeLog"

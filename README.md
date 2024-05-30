@@ -12,16 +12,16 @@ I am using this simple counter to track my time spent studying/acquiring new ski
 
 2. Clone or download this repository to your local machine.
 
-3. Open a terminal or command prompt and navigate to the directory containing the `timer.py` file.
-
-4. Run the script by executing the following command:
+3. Automatically install the listed dependencies by running the following command:
 
 ```
-python timer.py
+python -m pip install -r requirements.txt
 ```
 
-5. The timer will start running immediately, displaying the elapsed time in the format `HH:MM:SS`.
+3. [CLI under work]
 
-6. Press Enter at any time to stop the timer.
+4. The timer will start running immediately, displaying the elapsed time in the format `HH:MM:SS`.
 
-7. Once stopped, the CLI will display the total elapsed time in hours, minutes, and seconds.
+5. Press Enter at any time to stop the timer.
+
+6. Once stopped, the CLI will display the total elapsed time in hours, minutes, and seconds.
