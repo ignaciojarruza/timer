@@ -18,8 +18,8 @@ def printStats(times: pd.Series, text: str):
     
     print(text)
     for tag, total_seconds in times.items():
-        hours = total_seconds // 3600
-        minutes = (total_seconds % 3600) // 60
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes = remainder // 60
         print(f"    {tag}: {int(hours)}h {int(minutes)}m")
 
 def main():

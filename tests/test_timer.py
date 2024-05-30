@@ -4,7 +4,7 @@ import io
 import time
 import sys
 import select
-from timer import main
+from timer.timer import main
 
 class TestTimer(unittest.TestCase):
     @patch('builtins.input', side_effect=[''])
