@@ -1,14 +1,18 @@
+from pathlib import Path
 import select
 import time
 import sys
 from time import strftime, localtime
 import csv
 from datetime import datetime
+from timer.database import DatabaseHandler
 
-def log_event(start, end, tag, filename='log.csv'):
-    with open(filename, mode='a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([start, end, tag])
+class Logger:
+    def _init_(self, db_path: Path) -> None:
+        self._db_handler = DatabaseHandler(db_path)
+
+    def log_event(self, start_time, end_time, tag) -> int:
+        return self._db_handler.add_log(start_time, end_time, tag)
 
 def main():
     tag = input("Enter tag for activity.")
@@ -29,7 +33,7 @@ def main():
     start = strftime('%Y-%m-%d %H:%M:%S', localtime(start_time))
     end = strftime('%Y-%m-%d %H:%M:%S', localtime(time.time()))
 
-    log_event(start, end, tag)
+    #log_event(start, end, tag)
 
     print("start_time: {} | end_time: {}".format(start, end))
     print("\nElapsed Time: {} hours {} minutes {} seconds".format(int(hours), int(minutes), int(seconds)))

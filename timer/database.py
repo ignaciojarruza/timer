@@ -29,28 +29,24 @@ def init_database(db_path: Path) -> int:
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
-    
-class DBResponse(NamedTuple):
-    logs: pd.Series
-    error: int
 
 class DatabaseHandler:
     def __init__(self, db_path: Path) -> None:
         self._db_path = db_path
     
-    def get_logs(self) -> DBResponse:
+    def get_logs(self) -> int:
         try:
             logs = pd.read_csv(self._db_path)
-            return DBResponse(logs, SUCCESS)
+            return SUCCESS
         except OSError:
-            return DBResponse([], DB_READ_ERROR)
+            return DB_READ_ERROR
     
-    def add_log(self, start_time, end_time, tag) -> DBResponse:
+    def add_log(self, start_time, end_time, tag) -> int:
         try:
             with open(self._db_path, mode='a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([start_time, end_time, tag])
-                return DBResponse(pd.read_csv(self._db_path), SUCCESS)
+                return SUCCESS
         except OSError:
-            return DBResponse(None, DB_WRITE_ERROR)
+            return DB_WRITE_ERROR
         
