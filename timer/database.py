@@ -4,11 +4,13 @@
 import configparser
 import csv
 from pathlib import Path
+import pandas as pd
+from typing import NamedTuple
 
-from timer import DB_WRITE_ERROR, SUCCESS
+from timer import DB_READ_ERROR, DB_WRITE_ERROR, SUCCESS
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath(
-    "." + Path.home().stem + "log.csv"
+    Path.home().stem + "_log.csv"
 )
 
 def get_database_path(config_file: Path) -> Path:
@@ -27,3 +29,28 @@ def init_database(db_path: Path) -> int:
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
+    
+class DBResponse(NamedTuple):
+    logs: pd.Series
+    error: int
+
+class DatabaseHandler:
+    def __init__(self, db_path: Path) -> None:
+        self._db_path = db_path
+    
+    def get_logs(self) -> DBResponse:
+        try:
+            logs = pd.read_csv(self._db_path)
+            return DBResponse(logs, SUCCESS)
+        except OSError:
+            return DBResponse([], DB_READ_ERROR)
+    
+    def add_log(self, start_time, end_time, tag) -> DBResponse:
+        try:
+            with open(self._db_path, mode='a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([start_time, end_time, tag])
+                return DBResponse(pd.read_csv(self._db_path), SUCCESS)
+        except OSError:
+            return DBResponse(None, DB_WRITE_ERROR)
+        
