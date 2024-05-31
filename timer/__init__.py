@@ -1,7 +1,7 @@
 """Top-level package for Timer."""
 # timer/__init__.py
 
-__app_name__ = "Timer"
+__app_name__ = "timer"
 __version__ = "1.0"
 
 (
@@ -10,7 +10,7 @@ __version__ = "1.0"
     FILE_ERROR,
     DB_READ_ERROR,
     DB_WRITE_ERROR,
-    JSON_ERROR,
+    CSV_ERROR,
     ID_ERROR,
 ) = range(7)
 

@@ -5,7 +5,6 @@ import configparser
 import csv
 from pathlib import Path
 import pandas as pd
-from typing import NamedTuple
 
 from timer import DB_READ_ERROR, DB_WRITE_ERROR, SUCCESS
 

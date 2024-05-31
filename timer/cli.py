@@ -7,7 +7,7 @@ from typing import Optional
 import typer
 
 from timer import (
-    __app_name__, __version__, ERRORS, config, database, timer
+    SUCCESS, __app_name__, __version__, ERRORS, config, database, model
 )
 
 app = typer.Typer()
@@ -39,7 +39,7 @@ def init(
     else:
         typer.secho(f'The timer database is {db_path}', fg=typer.colors.GREEN)
 
-def get_logger() -> timer.Logger:
+def get_controller() -> model.TimerController:
     if config.CONFIG_FILE_PATH.exists():
         db_path = database.get_database_path(config.CONFIG_FILE_PATH)
     else:
@@ -50,13 +50,22 @@ def get_logger() -> timer.Logger:
         raise typer.Exit(1)
     
     if db_path.exists():
-        return timer.Logger(db_path)
+        return model.TimerController(db_path)
     else:
         typer.secho(
             'Database not found. Please, run "timer init"',
             fg=typer.colors.RED
         )
         raise typer.Exit(1)
+    
+@app.command()
+def runTimer(tag: str) -> None:
+    controller = get_controller()
+    std_log = controller.run(tag)
+    typer.secho(
+        std_log,
+        fg=typer.colors.GREEN
+    )
     
 def _version_callback(value: bool) -> None:
     if value:
